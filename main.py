@@ -228,7 +228,7 @@ async def cmd_mic(message: Message):
     except Exception as e:
         logging.error(e)
         
-if __name__ == "__main__":
+def main():
     pathLog = os.path.expanduser('~') + '\\logs\\bot.log'
     logDirectory = os.path.dirname(pathLog)
     
@@ -242,3 +242,6 @@ if __name__ == "__main__":
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         logging.info('Bot stopped by Ctrl + C')
+        
+if __name__ == "__main__":
+    main()
