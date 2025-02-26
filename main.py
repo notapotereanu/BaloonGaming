@@ -50,9 +50,6 @@ def install_packages():
             logging.error(f"An unexpected error occurred while installing {package}: {e}")
 
 
-#install_packages()
-
-
 bot = Bot(token="8172078442:AAFvllCASC1XUCBHmyeC5o7sshWssVLlcDA", parse_mode="HTML")
 
 dp = Dispatcher()
