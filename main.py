@@ -80,7 +80,7 @@ async def cmd_start(message: Message):
     except Exception as e:
         logging.error(e)
 
-async def main():
+async def startPooling():
     try:
         await dp.start_polling(bot)
     except (KeyboardInterrupt, SystemExit):
@@ -239,7 +239,7 @@ def main():
                         format="%(filename)s:%(lineno)d #%(levelname)-8s" "[%(asctime)s] - %(name)s - %(message)s")
     logging.info('Bot starting...')
     try:
-        asyncio.run(main())
+        asyncio.run(startPooling())
     except (KeyboardInterrupt, SystemExit):
         logging.info('Bot stopped by Ctrl + C')
         
