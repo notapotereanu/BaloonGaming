@@ -1,22 +1,7 @@
 import sys
 import subprocess
-from aiogram.types import Message
-from aiogram.filters.command import Command
 import logging
-import subprocess
-from aiogram.fsm.state import StatesGroup, State
-from aiogram.fsm.context import FSMContext
-import asyncio
 import os
-from aiogram.types import Message, FSInputFile
-from aiogram import Dispatcher, types, Bot
-from aiogram import Router
-from PIL import ImageGrab
-import pyaudio
-import wave
-from sys import platform
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 def install_packages():
     packages = [
@@ -49,6 +34,23 @@ def install_packages():
         except Exception as e:
             logging.error(f"An unexpected error occurred while installing {package}: {e}")
 
+install_packages()
+
+
+from aiogram.types import Message
+from aiogram.filters.command import Command
+from aiogram.fsm.state import StatesGroup, State
+from aiogram.fsm.context import FSMContext
+import asyncio
+from aiogram.types import Message, FSInputFile
+from aiogram import Dispatcher, types, Bot
+from aiogram import Router
+from PIL import ImageGrab
+import pyaudio
+import wave
+from sys import platform
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 bot = Bot(token="8172078442:AAFvllCASC1XUCBHmyeC5o7sshWssVLlcDA", parse_mode="HTML")
 
