@@ -166,9 +166,18 @@ async def cmd_powershell(message: Message, state: FSMContext):
 
         # Build the PowerShell command to run in the current working directory
         ps_command = ["powershell", "-Command", command]
-        
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+
+        process = subprocess.Popen(
+            ps_command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=current_dir,
+            startupinfo=startupinfo
+        )
         # Run the command and capture stdout and stderr, using the stored current directory
-        process = subprocess.Popen(ps_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=current_dir)
         stdout, stderr = process.communicate()
 
         # Combine output from both stdout and stderr
