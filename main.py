@@ -66,7 +66,6 @@ def install_packages():
             logging.error(f"An unexpected error occurred while installing {package}: {e}")
 
 wait_for_internet_connection()
-#install_packages()
 
 from aiogram.types import Message
 from aiogram.filters.command import Command
